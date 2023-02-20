@@ -1,5 +1,6 @@
 package epul.roblu.polymovie.controllers;
 
+import epul.roblu.polymovie.models.Character;
 import epul.roblu.polymovie.models.Movie;
 import epul.roblu.polymovie.services.MovieService;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +19,38 @@ public class MovieController {
     }
 
     @GetMapping("/public/movies")
-    public List<Movie> get() {
+    public List<Movie> getAll() {
         return movieService.getAll();
     }
 
-    @GetMapping("/public/movies/category/{categoryId}")
-    public List<Movie> get(@PathVariable String categoryId) {
-        return movieService.getByCategory(categoryId);
+    @GetMapping("/public/movies/category/{categoryCode}")
+    public List<Movie> getByCategory(@PathVariable String categoryCode) {
+        return movieService.getByCategory(categoryCode);
+    }
+
+    @GetMapping("/public/movies/actor/{id}")
+    public List<Movie> getByMovie(@PathVariable int id) {
+        return movieService.getByActor(id);
+    }
+
+    @GetMapping("/public/movies/{id}/characters")
+    public List<Character> getCharacters(@PathVariable int id) {
+        return movieService.getCharacters(id);
     }
 
     @GetMapping("/public/movies/{id}")
-    public Movie getOne(@PathVariable int id) {
+    public Movie getById(@PathVariable int id) {
         return movieService.get(id);
+    }
+
+    @GetMapping("/public/movies/prev/{id}")
+    public Movie getPrev(@PathVariable int id) {
+        return movieService.getPrev(id);
+    }
+
+    @GetMapping("/public/movies/next/{id}")
+    public Movie getNext(@PathVariable int id) {
+        return movieService.getNext(id);
     }
 
     @PostMapping("/movies")

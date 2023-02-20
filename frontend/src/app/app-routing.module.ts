@@ -9,16 +9,20 @@ import { AuthGuard } from './helpers/auth.guard';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { MovieComponent } from './components/movie/movie.component';
 import { UsersComponent } from './components/users/users.component';
+import { CategoryComponent } from './components/category/category.component';
+import { ActorComponent } from './components/actor/actor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { roles: [] }},
   { path: 'actors', component: ActorsComponent },
+  { path: 'actor/:id', component: ActorComponent},
   { path: 'movies', component: MoviesComponent },
-  { path: 'movies/:id', component: MovieComponent},
+  { path: 'movie/:id', component: MovieComponent},
   { path: 'categories', component: CategoriesComponent},
-  { path: 'user/movies', component: MoviesComponent, canActivate: [AuthGuard]},
-  { path: 'users', component: UserMoviesComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
+  { path: 'category/:code', component: CategoryComponent},
+  { path: 'user/movies', component: UserMoviesComponent, canActivate: [AuthGuard]},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 

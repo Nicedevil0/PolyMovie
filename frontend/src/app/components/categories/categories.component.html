@@ -1,1 +1,19 @@
-<p>categories works!</p>
+<section class="bg-white">
+  <div class="container px-6 pb-10 mx-auto">
+      <h1 class="text-3xl font-semibold text-center text-gray-800 lg:text-4xl">Tous les genres</h1>
+
+      <p class="max-w-2xl mx-auto my-6 text-center text-gray-500">
+          Choisissez votre genre préféré et découvrez les meilleurs films de ce genre.
+      </p>
+
+      <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4">
+          <div routerLink="/category/{{ category.code }}" *ngFor="let category of categories" class="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-gray-800">
+              <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{ category.image }}" alt="">
+
+              <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize group-hover:text-white">{{ category.label }}</h1>
+
+              <p class="mt-2 text-gray-500 group-hover:text-gray-300">{{ category.nbMovies + ' film' + (category.nbMovies > 1 ? 's' : '') }}</p>
+          </div>
+      </div>
+  </div>
+</section>

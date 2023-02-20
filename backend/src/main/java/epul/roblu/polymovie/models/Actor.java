@@ -33,6 +33,10 @@ public class Actor {
     @Column(name = "death")
     private Date death;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Character> playedCharacters;
 }

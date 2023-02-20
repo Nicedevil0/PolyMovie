@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("SELECT m FROM Movie m WHERE m.category.code = ?1")
-    List<Movie> findByCategoryId(String categoryId);
+    List<Movie> findByCategoryCode(String categoryId);
 }

@@ -37,6 +37,9 @@ public class Movie {
     @Column(name = "revenue")
     private int revenue;
 
+    @Column(name = "image")
+    private String image;
+
     @ManyToOne
     @JoinColumn(name = "director_id", nullable = false)
     private Director director;

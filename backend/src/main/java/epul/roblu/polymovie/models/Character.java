@@ -27,6 +27,5 @@ public class Character {
 
     @ManyToOne
     @JoinColumn(name = "actor_id", nullable = false)
-    @JsonIgnore
     private Actor actor;
 }

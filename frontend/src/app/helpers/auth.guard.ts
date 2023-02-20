@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     if(this.storageService.isLoggedIn()) {
       const userRole = this.userService.getRole();
       if(route.data['roles'] && route.data['roles'].indexOf(userRole) === -1) {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
         return false;
       }
       return true;

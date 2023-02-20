@@ -15,18 +15,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-public class AuthenticationController {
+@CrossOrigin(origins = "*")
+public class UserController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final UserService userService;
-    public AuthenticationController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userService) {
+    public UserController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
     }
 
-    @PostMapping("/login")
+    @PostMapping("public/login")
     public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO user) {
         try{
             Authentication authentication = authenticationManager.
@@ -43,7 +43,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/register")
+    @PostMapping("public/register")
     public ResponseEntity<TokenDTO> register(@RequestBody LoginDTO user) {
         try{
             User newUser = new User();
@@ -66,11 +66,29 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/user")
+    @GetMapping("user")
     public ResponseEntity<User> getUser(Authentication authentication){
         if(authentication == null){
             return ResponseEntity.status(401).build();
         }
         return ResponseEntity.ok(userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername()));
+    }
+
+    @PostMapping("users/favorites/{id}")
+    public ResponseEntity<User> addFavorite(Authentication authentication, @PathVariable int id){
+        if(authentication == null){
+            return ResponseEntity.status(401).build();
+        }
+        User user = userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername());;
+        return ResponseEntity.ok(userService.addFavorite(user, id));
+    }
+
+    @DeleteMapping("users/favorites/{id}")
+    public ResponseEntity<User> deleteFavorite(Authentication authentication, @PathVariable int id){
+        if(authentication == null){
+            return ResponseEntity.status(401).build();
+        }
+        User user = userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername());;
+        return ResponseEntity.ok(userService.deleteFavorite(user, id));
     }
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,6 +17,11 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { MovieComponent } from './components/movie/movie.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserMoviesComponent } from './components/user-movies/user-movies.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { CategoryComponent } from './components/category/category.component';
+import { ActorComponent } from './components/actor/actor.component';
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -30,7 +35,9 @@ import { UserMoviesComponent } from './components/user-movies/user-movies.compon
     CategoriesComponent,
     MovieComponent,
     UsersComponent,
-    UserMoviesComponent
+    UserMoviesComponent,
+    CategoryComponent,
+    ActorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,7 @@ import { UserMoviesComponent } from './components/user-movies/user-movies.compon
     HttpClientModule,
     FormsModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, {provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

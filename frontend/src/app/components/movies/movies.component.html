@@ -1,34 +1,61 @@
-<div class="px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-  <div class="mt-2">
-    <h2 class="text-2xl  font-bold text-gray-700 dark:text-white dark:hover:text-gray-200">Tous les films</h2>
-    <table class="table-auto">
-      <thead>
-        <tr>
-          <th>Titre</th>
-          <th>Année de sortie</th>
-          <th>Genre</th>
-          <th>Durée</th>
-          <th>Réalisateur</th>
-          <th>Budget</th>
-          <th>Rentrées</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let movie of movies">
-          <td>{{ movie.title }}</td>
-          <td>{{ movie.release }}</td>
-          <td>{{ movie.category.label }}</td>
-          <td>{{ movie.duration }} min</td>
-          <td>{{ movie.director.firstName + ' ' + movie.director.lastName }}</td>
-          <td>{{ movie.budget }}$</td>
-          <td>{{ movie.revenue }}$</td>
-          <td>
-            <button class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">Modifier</button>
-            <button class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">Supprimer</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<h1 class="text-3xl font-semibold text-center text-gray-800 lg:text-4xl mb-6">{{ pageTitle }}</h1>
+<div class="flex flex-col mt-12">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y table-fixed divide-gray-700">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th *ngIf="currentUser" scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400"></th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Titre
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Année de sortie
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Genre
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Durée
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Réalisateur
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Budget
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Rentrées
+                            </th>
+                            <th *ngIf="currentUser && currentUser.role === 'admin'" scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y bg-gray-800 divide-gray-700">
+                        <tr *ngFor="let movie of movies" class="hover:bg-gray-700">
+                            <td *ngIf="currentUser" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" (click)="addToFavorites(movie)" *ngIf="!include(currentUser.favorites, movie)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" (click)="removeFromFavorites(movie)" *ngIf="include(currentUser.favorites, movie)" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 cursor-pointer">
+                                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                                </svg>
+                            </td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.title }}</td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.release | date:'mediumDate' }}</td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.category.label }}</td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.duration }} min</td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.director.firstName + ' ' + movie.director.lastName }}</td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.budget }} $</td>
+                            <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white cursor-pointer">{{ movie.revenue }} $</td>
+                            <td *ngIf="currentUser && currentUser.role === 'admin'" class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                <button type="button" class="inline-block px-6 py-2 border-2 border-yellow-500 text-yellow-500 font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Modifier</button>
+                                <button type="button" class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-red-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out ml-5">Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

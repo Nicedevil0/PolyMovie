@@ -1,6 +1,8 @@
 package epul.roblu.polymovie.services;
 
+import epul.roblu.polymovie.models.Movie;
 import epul.roblu.polymovie.models.User;
+import epul.roblu.polymovie.repositories.MovieRepository;
 import epul.roblu.polymovie.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -8,9 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       MovieRepository movieRepository) {
         this.userRepository = userRepository;
+        this.movieRepository = movieRepository;
     }
 
     public User getByLogin(String username) {
@@ -26,5 +31,19 @@ public class UserService {
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public User addFavorite(User user, int movieId) {
+        Movie movie = movieRepository.findById(movieId).get();
+        user.getFavorites().add(movie);
+        userRepository.save(user);
+        return user;
+    }
+
+    public User deleteFavorite(User user, int id) {
+        Movie movie = movieRepository.findById(id).get();
+        user.getFavorites().remove(movie);
+        userRepository.save(user);
+        return user;
     }
 }
