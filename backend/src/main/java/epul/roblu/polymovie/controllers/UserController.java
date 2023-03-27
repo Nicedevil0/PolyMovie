@@ -77,6 +77,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername()));
     }
 
+    @GetMapping("admin/users")
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAll());
+    }
+
     @PostMapping("users/favorites/{id}")
     public ResponseEntity<User> addFavorite(Authentication authentication, @PathVariable int id){
         if(authentication == null){
@@ -93,5 +98,10 @@ public class UserController {
         }
         User user = userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername());;
         return ResponseEntity.ok(userService.deleteFavorite(user, id));
+    }
+
+    @DeleteMapping("admin/users/{id}")
+    public ResponseEntity<List<User>> deleteUser(@PathVariable int id){
+        return ResponseEntity.ok(userService.delete(id));
     }
 }

@@ -60,11 +60,19 @@ export class UserService {
     return this.http.get<Movie[]>(this.baseUrl + '/users/favorites');
   }
 
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + '/admin/users');
+  }
+
   addToFavorites(movie: Movie): Observable<User> {
     return this.http.post<User>(this.baseUrl + '/users/favorites/' + movie.id, null);
   }
 
   removeFromFavorites(movie: Movie): Observable<User> {
     return this.http.delete<User>(this.baseUrl + '/users/favorites/' + movie.id);
+  }
+
+  delete(userId: number): Observable<User[]> {
+    return this.http.delete<User[]>(this.baseUrl + '/admin/users/' + userId);
   }
 }

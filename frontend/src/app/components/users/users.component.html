@@ -1,1 +1,31 @@
-<p>users works!</p>
+<h1 class="text-3xl font-semibold text-center text-gray-800 lg:text-4xl mb-6">Gestion des utilisateurs</h1>
+<div class="flex flex-col mt-12">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y table-fixed divide-gray-700">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th scope="col" class="w-[40%] py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Nom d'utilisateur
+                            </th>
+                            <th scope="col" class="w-[40%] py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
+                                Rôle
+                            </th>
+                            <th scope="col" class="w-[20%]"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y bg-gray-800 divide-gray-700">
+                        <tr *ngFor="let user of users" class="hover:bg-gray-700">
+                            <td class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white">{{ user.login }}</td>
+                            <td class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white">{{ user.role }}</td>
+                            <td class="px-6">
+                              <a (click)="delete(user.id)" class="cursor-pointer inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-red-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out ml-5">Supprimer</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

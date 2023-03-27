@@ -27,6 +27,10 @@ public class UserService {
         return null;
     }
 
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
     public void save(User user){
         userRepository.save(user);
     }
@@ -47,5 +51,10 @@ public class UserService {
         user.getFavorites().remove(movie);
         userRepository.save(user);
         return user;
+    }
+
+    public List<User> delete(int id) {
+        userRepository.deleteById(id);
+        return this.getAll();
     }
 }
