@@ -14,6 +14,11 @@
 
               <p class="mt-2 text-gray-500 group-hover:text-gray-300">{{ category.nbMovies + ' film' + (category.nbMovies > 1 ? 's' : '') }}</p>
           </div>
+          <div routerLink="/category/new" class="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-gray-800">
+            <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="assets/img/plus.png" alt="plus-icon">
+
+            <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize group-hover:text-white">Nouveau genre</h1>
+        </div>
       </div>
   </div>
 </section>

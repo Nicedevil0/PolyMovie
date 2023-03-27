@@ -1,6 +1,10 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import { httpInterceptorProviders } from './helpers/http.interceptor';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { CategoriesComponent } from './components/categories/categories.component';
@@ -21,6 +25,10 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { CategoryComponent } from './components/category/category.component';
 import { ActorComponent } from './components/actor/actor.component';
+import { FormActorComponent } from './components/form-actor/form-actor.component';
+import { FormMovieComponent } from './components/form-movie/form-movie.component';
+import { FormCategoryComponent } from './components/form-category/form-category.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -37,13 +45,22 @@ registerLocaleData(localeFr);
     UsersComponent,
     UserMoviesComponent,
     CategoryComponent,
-    ActorComponent
+    ActorComponent,
+    FormActorComponent,
+    FormMovieComponent,
+    FormCategoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatIconModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [httpInterceptorProviders, {provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent]

@@ -56,6 +56,10 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
+  getFavorites(): Observable<Movie[]> {
+    return this.http.get<Movie[]>(this.baseUrl + '/users/favorites');
+  }
+
   addToFavorites(movie: Movie): Observable<User> {
     return this.http.post<User>(this.baseUrl + '/users/favorites/' + movie.id, null);
   }

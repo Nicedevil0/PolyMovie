@@ -47,4 +47,10 @@ export class ActorComponent {
       });
     }
   }
+
+  delete(movieId: number) {
+    this.movieService.delete(movieId).subscribe(() => {
+      // success
+    });
+  }
 }

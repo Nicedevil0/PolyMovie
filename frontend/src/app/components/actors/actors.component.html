@@ -12,6 +12,11 @@
 
               <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize group-hover:text-white">{{ actor.firstName + ' ' + actor.lastName }}</h1>
           </div>
+          <div routerLink="/actor/new" class="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-gray-800">
+            <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="assets/img/plus.png" alt="plus-icon">
+
+            <h1 class="mt-4 text-2xl font-semibold text-gray-700 group-hover:text-white">Nouvel acteur</h1>
+        </div>
       </div>
   </div>
 </section>

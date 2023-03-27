@@ -1,0 +1,77 @@
+<section class=" flex flex-col overflow-hidden bg-white rounded-lg shadow-lg md:flex-row">
+  <div class="md:flex md:items-center md:justify-center md:w-1/2 md:bg-gray-700">
+      <div class="px-6 py-6 md:px-8 md:py-0">
+          <h2 class="text-lg font-bold text-gray-700 md:text-gray-100">Aperçu</h2>
+
+          <p class="mt-2 text-sm text-gray-600 md:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur obcaecati odio</p>
+      </div>
+  </div>
+
+  <div class="flex flex-col items-center justify-center pb-6 py-4 w-1/2">
+    <h1 class="text-2xl font-bold text-gray-700">{{ useCase }} film</h1>
+    <form class="flex flex-col items-center justify-center">
+      <div class="mt-4 w-full">
+        <label for="title" class="block text-sm text-gray-500">Titre</label>
+        <input [(ngModel)]="movie.title" id="title" name="title" type="text" placeholder="Titre" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+      </div>
+      <div class="mt-4 w-full">
+        <label for="image" class="block text-sm text-gray-500">Titre</label>
+        <input [(ngModel)]="movie.image" id="image" name="image" type="text" placeholder="Image" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+      </div>
+      <div class="mt-4 w-full">
+        <label for="director" class="block text-sm text-gray-500">Réalisateur</label>
+        <select [(ngModel)]="movie.director.id" (change)="onChangeDirector()" id="director" name="director" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+          <option selected *ngIf="useCase == 'Nouveau'">-</option>
+          <option *ngFor="let director of allDirectors" value="{{ director.id }}">{{ director.firstName }} {{ director.lastName }}</option>
+        </select>
+      </div>
+      <div class="mt-4 w-full">
+        <label for="release" class="block text-sm text-gray-500">Date de sortie</label>
+        <input [(ngModel)]="movie.release" id="release" name="release"type="date" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+      </div>
+      <div class="mt-4 w-full">
+        <label for="duration" class="block text-sm text-gray-500">Durée</label>
+        <input [(ngModel)]="movie.duration" id="duration" name="duration" type="time" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+      </div>
+      <div class="mt-4 w-full">
+        <label for="category" class="block text-sm text-gray-500">Genre</label>
+        <select [(ngModel)]="movie.category.code" (change)="onChangeCategory()" id="category" name="category" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+          <option selected *ngIf="useCase == 'Nouveau'">-</option>
+          <option *ngFor="let category of allCategories" value="{{ category.code }}">{{ category.label }}</option>
+        </select>
+      </div>
+      <div class="mt-4 w-full">
+        <label for="actors" class="block text-sm text-gray-500">Acteurs</label>
+        <div>
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row *ngFor="let actor of actors" (removed)="remove(actor)">
+              {{ actor.firstName }} {{ actor.lastName }}
+              <button matChipRemove [attr.aria-label]="'remove ' + actor">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input id="actors" #actorsInput placeholder="Ajouter un acteur..." [formControl]="actorCtrl"
+            [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+            class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"/>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let actor of filteredActors" [value]="actor.id">
+              {{ actor.firstName }} {{ actor.lastName }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+      <div class="mt-4 w-full">
+        <label for="budget" class="block text-sm text-gray-500">Budget (en €)</label>
+        <input [(ngModel)]="movie.budget" id="budget" name="budget" type="number" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+      </div>
+      <div class="mt-4 w-full">
+        <label for="revenue" class="block text-sm text-gray-500">Rentrées (en €)</label>
+        <input [(ngModel)]="movie.revenue" id="revenue" name="revenue" type="number" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+      </div>
+      <button (click)="saveMovie()" class="mt-8 px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">Sauvegarder</button>
+    </form>
+  </div>
+</section>

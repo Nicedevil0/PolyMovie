@@ -1,9 +1,9 @@
-<div class="flex flex-col w-full justify-between min-h-screen h-full">
-  <div class="flex flex-row h-full min-h-screen">
+<div class="flex flex-col w-full justify-between min-h-screen">
+  <div class="grow flex flex-row h-full">
     <app-sidebar class="flex flex-col min-h-full w-64 px-4 py-8 border-r bg-gray-900 border-gray-700"></app-sidebar>
     <div class="flex flex-col w-full h-full p-16">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <app-footer></app-footer>
+  <app-footer class="grow-0"></app-footer>
 </div>

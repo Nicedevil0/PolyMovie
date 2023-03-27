@@ -39,4 +39,8 @@ export class MovieService {
   getCharactersOfMovie(id: number): Observable<Character[]> {
     return this.http.get<Character[]>(this.baseUrl + '/public/movies/' + id + '/characters');
   }
+
+  delete(movieId: number) {
+    return this.http.delete(this.baseUrl + '/admin/movies/' + movieId);
+  }
 }

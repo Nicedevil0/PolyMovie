@@ -4,8 +4,8 @@ import { Director } from "./director.model";
 export class Movie {
   id: number;
   title: string;
-  duration: number;
-  release: Date;
+  duration: number | string;
+  release: Date | string;
   budget: number;
   revenue: number;
   image: string;

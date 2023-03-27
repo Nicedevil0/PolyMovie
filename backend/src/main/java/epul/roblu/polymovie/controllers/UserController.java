@@ -2,6 +2,7 @@ package epul.roblu.polymovie.controllers;
 
 import epul.roblu.polymovie.dto.LoginDTO;
 import epul.roblu.polymovie.dto.TokenDTO;
+import epul.roblu.polymovie.models.Movie;
 import epul.roblu.polymovie.models.User;
 import epul.roblu.polymovie.services.UserService;
 import epul.roblu.polymovie.utils.JwtUtil;
@@ -13,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -79,7 +82,7 @@ public class UserController {
         if(authentication == null){
             return ResponseEntity.status(401).build();
         }
-        User user = userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername());;
+        User user = userService.getByLogin(((UserDetails) authentication.getPrincipal()).getUsername());
         return ResponseEntity.ok(userService.addFavorite(user, id));
     }
 

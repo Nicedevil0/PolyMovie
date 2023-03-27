@@ -46,4 +46,11 @@ export class CategoryComponent {
       });
     }
   }
+
+  delete(movieId: number) {
+    console.log('delete');
+    this.movieService.delete(movieId).subscribe(() => {
+      // success
+    });
+  }
 }
