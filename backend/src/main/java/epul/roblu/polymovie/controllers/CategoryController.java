@@ -3,12 +3,10 @@ package epul.roblu.polymovie.controllers;
 import epul.roblu.polymovie.dto.CategoryDTO;
 import epul.roblu.polymovie.models.Category;
 import epul.roblu.polymovie.services.CategoryService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -21,9 +19,8 @@ public class CategoryController {
     }
 
     @GetMapping("/public/categories")
-    public ResponseEntity<List<CategoryDTO>> getAll() {
-        return ResponseEntity.status(404).build();
-//        return categoryService.getAll();
+    public List<CategoryDTO> getAll() {
+        return categoryService.getAll();
     }
 
     @GetMapping("/public/categories/{code}")
