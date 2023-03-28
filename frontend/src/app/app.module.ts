@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,10 @@ import { FormActorComponent } from './components/form-actor/form-actor.component
 import { FormMovieComponent } from './components/form-movie/form-movie.component';
 import { FormCategoryComponent } from './components/form-category/form-category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmationDialog } from './components/confirmation-dialog/confirmation.dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ServerErrorInterceptor } from './helpers/server-error.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -48,7 +52,8 @@ registerLocaleData(localeFr);
     ActorComponent,
     FormActorComponent,
     FormMovieComponent,
-    FormCategoryComponent
+    FormCategoryComponent,
+    ConfirmationDialog
   ],
   imports: [
     BrowserModule,
@@ -60,9 +65,15 @@ registerLocaleData(localeFr);
     MatIconModule,
     MatChipsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
-  providers: [httpInterceptorProviders, {provide: LOCALE_ID, useValue: 'fr-FR' }],
+  providers: [
+    httpInterceptorProviders,
+    {provide: LOCALE_ID, useValue: 'fr-FR' },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

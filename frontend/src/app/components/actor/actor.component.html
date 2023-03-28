@@ -49,7 +49,6 @@
                             <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400">
                                 Rentrées
                             </th>
-                            <th *ngIf="currentUser && currentUser.role === 'admin'" scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase text-gray-400"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y bg-gray-800 divide-gray-700">
@@ -61,10 +60,6 @@
                             <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white">{{ movie.director.firstName + ' ' + movie.director.lastName }}</td>
                             <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white">{{ movie.budget }} $</td>
                             <td routerLink="/movie/{{ movie.id }}" class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white">{{ movie.revenue }} $</td>
-                            <td *ngIf="currentUser && currentUser.role === 'admin'" class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                                <a routerLink="/movie/edit/{{ movie.id }}" class="cursor-pointer inline-block px-6 py-2 border-2 border-yellow-500 text-yellow-500 font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Modifier</a>
-                                <a (click)="delete(movie.id)" class="cursor-pointer inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-red-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out ml-5">Supprimer</a>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
