@@ -33,6 +33,7 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
 import { MatDialogModule } from '@angular/material/dialog';
 import { ServerErrorInterceptor } from './helpers/server-error.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -53,7 +54,8 @@ registerLocaleData(localeFr);
     FormActorComponent,
     FormMovieComponent,
     FormCategoryComponent,
-    ConfirmationDialog
+    ConfirmationDialog,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,

@@ -4,3 +4,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mdc-snackbar__label {
+  padding: 0!important;
+}
+
+.mdc-snackbar__surface {
+  padding: 0!important;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  border-radius: 0.5rem!important;
+}

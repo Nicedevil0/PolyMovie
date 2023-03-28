@@ -24,7 +24,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
           this.notificationService.showError(`Le serveur n'est pas joignable`);
           return throwError(() => error);
         } else {
-          this.notificationService.showError(`Une erreur ${error.status} est survenue : ${error.message}`);
+          this.notificationService.showError(`Une erreur ${error.status} est survenue.`);
           return throwError(() => error);
         }
       })
