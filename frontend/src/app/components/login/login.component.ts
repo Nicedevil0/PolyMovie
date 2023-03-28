@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +12,12 @@ export class LoginComponent {
   password!: string;
   type: string = 'CONNECT';
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) {
+    this.route.data.subscribe(data => {
+      console.log(data);
+      this.type = data['type'] === 'register' ? 'REGISTER' : 'CONNECT';
+    });
+  }
 
   signin() {
     if(this.type === 'CONNECT'){

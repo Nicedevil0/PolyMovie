@@ -17,7 +17,8 @@ import { FormCategoryComponent } from './components/form-category/form-category.
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { roles: [] }},
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { roles: [], type: 'login' }},
+  { path: 'register', component: LoginComponent, canActivate: [AuthGuard], data: { roles: [], type: 'register' }},
   { path: 'actors', component: ActorsComponent },
   { path: 'actor/new', component: FormActorComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
   { path: 'actor/edit/:id', component: FormActorComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
