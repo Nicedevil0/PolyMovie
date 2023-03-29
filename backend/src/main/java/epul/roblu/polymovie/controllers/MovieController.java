@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class MovieController {
     private final MovieService movieService;
 
@@ -53,13 +53,9 @@ public class MovieController {
         return movieService.getNext(id);
     }
 
-    @PostMapping("/movies")
-    public ResponseEntity<Movie> post(Authentication authentication, @RequestBody Movie movie) {
-        if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
-            return ResponseEntity.ok(movieService.save(movie));
-        }else{
-            return ResponseEntity.status(401).build();
-        }
+    @PostMapping("/admin/movies")
+    public ResponseEntity<Movie> post(@RequestBody Movie movie) {
+        return ResponseEntity.ok(movieService.save(movie));
     }
 
     @PutMapping("/movies/{id}")

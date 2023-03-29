@@ -1,18 +1,18 @@
-import { Movie } from 'src/app/models/movie.model';
-import { ActorService } from './../../services/actor.service';
-import { Category } from './../../models/category.model';
-import { CategoryService } from './../../services/category.service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MovieService } from 'src/app/services/movie.service';
-import { Actor } from 'src/app/models/actor.model';
-import { Director } from 'src/app/models/director.model';
-import { DirectorService } from 'src/app/services/director.service';
-import { map, Observable, startWith } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import {Movie} from 'src/app/models/movie.model';
+import {ActorService} from './../../services/actor.service';
+import {Category} from './../../models/category.model';
+import {CategoryService} from './../../services/category.service';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {MovieService} from 'src/app/services/movie.service';
+import {Actor} from 'src/app/models/actor.model';
+import {Director} from 'src/app/models/director.model';
+import {DirectorService} from 'src/app/services/director.service';
+import {map, Observable, startWith} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-form-movie',
@@ -49,12 +49,15 @@ export class FormMovieComponent {
     this.actorCtrl.valueChanges.pipe(
       startWith(null),
       map((str: string | null) => str !== null ? this._filter(str) : this.allActors.slice())).subscribe((actors) => {
-        this.filteredActors = actors;
-      });
+      this.filteredActors = actors;
+    });
   }
 
   saveMovie(): void {
     console.log(this.movie);
+    this.movieService.create(this.movie).subscribe(() => {
+      console.log('ttoo');
+    })
     // if(!checkErrors()) {
     //   if (this.useCase === 'Modification') {
     //     this.movieService.update(this.movie).subscribe(() => {
@@ -121,8 +124,6 @@ export class FormMovieComponent {
   }
 
   private _filter(value: any): Actor[] {
-    console.log(value);
-    console.log(typeof value);
     if (value instanceof Number) {
       return this.allActors.filter(actor =>
         this.actors.find((a) => a.id === actor.id) === undefined);
@@ -131,6 +132,6 @@ export class FormMovieComponent {
     return this.allActors.filter(actor =>
       this.actors.find((a) => a.id === actor.id) === undefined &&
       (actor.firstName.toLowerCase().includes(filterValue) ||
-      actor.lastName.toLowerCase().includes(filterValue)));
+        actor.lastName.toLowerCase().includes(filterValue)));
   }
 }

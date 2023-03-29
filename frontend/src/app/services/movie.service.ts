@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Movie } from '../models/movie.model';
-import { Character } from '../models/character.model';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Movie} from '../models/movie.model';
+import {Character} from '../models/character.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ import { Character } from '../models/character.model';
 export class MovieService {
   baseUrl: string = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAll(): Observable<Movie[]> {
     return this.http.get<Movie[]>(this.baseUrl + '/public/movies');
@@ -42,5 +43,9 @@ export class MovieService {
 
   delete(movieId: number) {
     return this.http.delete(this.baseUrl + '/admin/movies/' + movieId);
+  }
+
+  create(movie: Movie) {
+    return this.http.post(this.baseUrl + '/admin/movies/', movie)
   }
 }

@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="PolyMovieApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
     <module name="PolyMovie" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="epul.roblu.polymovie.PolyMovieApplication" />
     <method v="2">
