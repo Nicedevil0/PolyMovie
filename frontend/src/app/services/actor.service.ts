@@ -17,4 +17,12 @@ export class ActorService {
   getById(id: number): Observable<Actor> {
     return this.http.get<Actor>(this.baseUrl + '/public/actors/' + id);
   }
+
+  save(actor: Actor): Observable<Actor> {
+    return this.http.post<Actor>(this.baseUrl + '/admin/actors', actor);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + '/admin/actors/' + id);
+  }
 }

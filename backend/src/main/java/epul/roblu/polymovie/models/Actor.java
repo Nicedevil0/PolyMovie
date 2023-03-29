@@ -36,7 +36,7 @@ public class Actor {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Character> playedCharacters;
 }

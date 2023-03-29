@@ -48,7 +48,7 @@ public class Movie {
     @JoinColumn(name = "category_code", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Character> characters;
 }
