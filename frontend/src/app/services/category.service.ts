@@ -17,4 +17,12 @@ export class CategoryService {
   getByCode(code: string): Observable<Category> {
     return this.http.get<Category>(this.baseUrl + '/public/categories/' + code);
   }
+
+  create(category: Category): Observable<Category> {
+    return this.http.post<Category>(this.baseUrl + '/admin/categories', category);
+  }
+
+  delete(category: string) {
+    return this.http.delete(this.baseUrl + '/admin/categories/' + category);
+  }
 }

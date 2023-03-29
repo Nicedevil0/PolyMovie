@@ -53,30 +53,26 @@ public class MovieController {
         return movieService.getNext(id);
     }
 
-    @PostMapping("/movies")
-    public ResponseEntity<Movie> post(Authentication authentication, @RequestBody Movie movie) {
-        if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+    @PostMapping("/admin/movies")
+    public ResponseEntity<Movie> post(@RequestBody Movie movie) {
             return ResponseEntity.ok(movieService.save(movie));
-        }else{
-            return ResponseEntity.status(401).build();
-        }
     }
 
     @PutMapping("/movies/{id}")
     public ResponseEntity<Movie> put(Authentication authentication, @PathVariable int id, @RequestBody Movie movie) {
-        if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))) {
             return ResponseEntity.ok(movieService.update(id, movie));
-        }else{
+        } else {
             return ResponseEntity.status(401).build();
         }
     }
 
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<Void> delete(Authentication authentication, @PathVariable int id) {
-        if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))){
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin"))) {
             movieService.delete(id);
             return ResponseEntity.ok().build();
-        }else{
+        } else {
             return ResponseEntity.status(401).build();
         }
     }

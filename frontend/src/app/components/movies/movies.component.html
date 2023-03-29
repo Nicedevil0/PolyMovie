@@ -1,4 +1,9 @@
 <h1 class="text-3xl font-semibold text-center text-gray-800 lg:text-4xl mb-6">{{ pageTitle }}</h1>
+<div *ngIf="mod == 'category' && category.nbMovies == 0" class="flex justify-center">
+    <button (click)="delete()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Supprimer
+    </button>
+</div>
 <div class="flex flex-col mt-12">
     <div class="overflow-x-auto shadow-md sm:rounded-lg">
         <div class="inline-block min-w-full align-middle">

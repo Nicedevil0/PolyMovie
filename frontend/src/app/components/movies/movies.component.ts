@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Movie } from 'src/app/models/movie.model';
 import { User } from 'src/app/models/user.model';
 import { StorageService } from 'src/app/services/storage.service';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-movies',
@@ -14,6 +15,9 @@ export class MoviesComponent {
   pageTitle: string = 'Tous les films';
   movies: Movie[] = [];
   currentUser!: User | null;
+  mod = 'movies';
+  category: Category = new Category('', '', '', 0);
+
   constructor(private movieService: MovieService, private userService: UserService, private storageService: StorageService) {
     this.movieService.getAll().subscribe((movies) => {
       this.movies = movies;
@@ -46,10 +50,9 @@ export class MoviesComponent {
     }
   }
 
-  delete(movieId: number) {
-    console.log('delete');
-    this.movieService.delete(movieId).subscribe(() => {
-      //success
-    });
+  delete() {
+    //console.log('delete');
+    //this.movieService.delete(movieId).subscribe(() => {
+    //});
   }
 }

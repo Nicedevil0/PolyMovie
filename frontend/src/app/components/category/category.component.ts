@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Category } from 'src/app/models/category.model';
 import { Movie } from 'src/app/models/movie.model';
 import { User } from 'src/app/models/user.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -16,14 +17,24 @@ export class CategoryComponent {
   pageTitle: string = 'Genre XXX';
   currentUser: User | null = null;
   movies: Movie[] = [];
-  constructor(private route: ActivatedRoute, private movieService: MovieService, private categoryService: CategoryService, private userService: UserService, private storageService: StorageService) {
+  mod = 'category';
+  code = '';
+  category: Category = new Category('', '', '', 0);
+
+  constructor(private route: ActivatedRoute, private movieService: MovieService, private categoryService: CategoryService, private userService: UserService, private storageService: StorageService,private router: Router) {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.movieService.getByCategory(params.get('code') as string).subscribe((movies) => {
+      this.code = params.get('code') as string;
+      this.movieService.getByCategory(this.code).subscribe((movies) => {
         this.movies = movies;
       });
-      this.categoryService.getByCode(params.get('code') as string).subscribe((category) => {
+      this.categoryService.getByCode(this.code).subscribe((category) => {
         this.pageTitle = this.pageTitle.replace('XXX', category.label);
       });
+    });
+
+    this.categoryService.getByCode(this.code).subscribe(data => {
+      console.log(data)
+      this.category = data;
     });
   }
 
@@ -47,10 +58,9 @@ export class CategoryComponent {
     }
   }
 
-  delete(movieId: number) {
-    console.log('delete');
-    this.movieService.delete(movieId).subscribe(() => {
-      // success
+  delete() {
+    this.categoryService.delete(this.category.code).subscribe(() => {
+      this.router.navigate(['/categories']);
     });
   }
 }

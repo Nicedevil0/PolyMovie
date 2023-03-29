@@ -27,7 +27,7 @@ public class MovieService {
     }
 
     public Movie get(int id) {
-        if(movieRepository.existsById(id)){
+        if (movieRepository.existsById(id)) {
             return movieRepository.findById(id).get();
         }
         return null;
@@ -38,7 +38,7 @@ public class MovieService {
     }
 
     public Movie update(int id, Movie movie) {
-        if(movieRepository.existsById(id)){
+        if (movieRepository.existsById(id)) {
             movie.setId(id);
             return movieRepository.save(movie);
         }
@@ -46,7 +46,7 @@ public class MovieService {
     }
 
     public void delete(int id) {
-        if(movieRepository.existsById(id)){
+        if (movieRepository.existsById(id)) {
             movieRepository.deleteById(id);
         }
     }
@@ -54,10 +54,10 @@ public class MovieService {
     public Movie getPrev(int id) {
         List<Movie> movies = movieRepository.findAll();
         for (int i = 0; i < movies.size(); i++) {
-            if(movies.get(i).getId() == id){
-                if(i == 0){
+            if (movies.get(i).getId() == id) {
+                if (i == 0) {
                     return movies.get(movies.size() - 1);
-                }else{
+                } else {
                     return movies.get(i - 1);
                 }
             }
@@ -68,10 +68,10 @@ public class MovieService {
     public Movie getNext(int id) {
         List<Movie> movies = movieRepository.findAll();
         for (int i = 0; i < movies.size(); i++) {
-            if(movies.get(i).getId() == id){
-                if(i == movies.size() - 1){
+            if (movies.get(i).getId() == id) {
+                if (i == movies.size() - 1) {
                     return movies.get(0);
-                }else{
+                } else {
                     return movies.get(i + 1);
                 }
             }

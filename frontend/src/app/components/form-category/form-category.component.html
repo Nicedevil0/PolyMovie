@@ -1,1 +1,19 @@
-<p>form-category works!</p>
+<div class="grid grid-cols-3">
+    <div class="col-span-2">
+        <h1 class="text-2xl font-bold text-gray-700">Nouveau genre</h1>
+        <form class="flex flex-col items-center justify-center">
+        <div class="mt-4 w-full">
+            <label for="label" class="block text-sm text-gray-500">Titre</label>
+            <input [(ngModel)]="category.label" id="title" name="title" type="text" placeholder="Titre" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+        </div>
+        <div class="mt-4 w-full">
+            <label for="image" class="block text-sm text-gray-500">Image</label>
+            <input [(ngModel)]="category.image" id="image" name="image" type="text" placeholder="Image" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+        </div>
+        <button (click)="saveMovie()" class="mt-8 px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">Sauvegarder</button>
+        </form>
+    </div>
+    <div class="col-span-1 flex justify-center items-center">
+        <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{ category.image }}" alt="">
+    </div>
+</div>
